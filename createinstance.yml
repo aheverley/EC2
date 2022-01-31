@@ -1,4 +1,4 @@
-- hosts: windows
+- hosts: localhost
   name: Creating a EC2 Instance
   roles:
     - aws-create-ec2
