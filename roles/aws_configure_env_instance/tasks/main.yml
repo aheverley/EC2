@@ -1,0 +1,117 @@
+---
+
+ - name: create VPC
+   amazon.aws.ec2_vpc_net:
+     name: "{{ vpc_name }}"
+     cidr_block: "{{ vpc_cidr }}"
+     region: "{{ region }}"
+     state: present
+     aws_access_key: "{{ aws_access_key }}"
+     aws_secret_key: "{{ aws_secret_key }}"
+   register: vpc
+
+
+ - name: Set VPC ID in variable
+   set_fact:
+     vpc_id: "{{ vpc.vpc.id }}"
+
+
+ - name: associate subnet to the VPC
+   amazon.aws.ec2_vpc_subnet:
+    state: present
+    vpc_id: "{{ vpc_id }}"
+    region: "{{ region }}"
+    cidr: "{{ subnet_cidr }}"
+    aws_access_key: "{{ aws_access_key }}"
+    aws_secret_key: "{{ aws_secret_key }}"
+    map_public: yes
+    resource_tags:
+      Name: "{{ subnet_name }}"
+   register: subnet
+
+ - name: create IGW
+   amazon.aws.ec2_vpc_igw:
+    vpc_id: "{{ vpc_id }}"
+    region: "{{ region }}"
+    aws_access_key: "{{ aws_access_key }}"
+    aws_secret_key: "{{ aws_secret_key }}"
+    state: "present"
+    tags:
+      Name: "{{ igw_name }}"
+   register: igw
+
+
+ - name: Route IGW
+   amazon.aws.ec2_vpc_route_table:
+    vpc_id: "{{ vpc_id }}"
+    region: "{{ region }}"
+    aws_access_key: "{{ aws_access_key }}"
+    aws_secret_key: "{{ aws_secret_key }}"
+    subnets:
+      - "{{ subnet.subnet.id }}"
+    routes:
+      - dest: 0.0.0.0/0
+        gateway_id: "{{ igw.gateway_id  }}"
+    tags:
+      Name: "{{ route_name }}"
+
+
+ - name: Create Security Group
+   amazon.aws.ec2_group:
+    name: Web DMZ
+    description: DMZ Security Group
+    vpc_id: "{{ vpc_id }}"
+    region: "{{ region }}"
+    aws_access_key: "{{ aws_access_key }}"
+    aws_secret_key: "{{ aws_secret_key }}"
+    rules:
+      - proto: tcp
+        ports:
+        - 80
+        cidr_ip: 0.0.0.0/0
+      - proto: tcp
+        ports:
+        - 22
+        cidr_ip: 0.0.0.0/0
+   register: security_group
+
+ - name: create a new ec2 key pair, returns generated private key
+   amazon.aws.ec2_key:
+    aws_access_key: "{{ aws_access_key }}"
+    aws_secret_key: "{{ aws_secret_key }}"
+    name: "{{ keypair_name }}"
+    region: "{{ region }}"
+   register: keypair
+   tags:
+    - ec2_key
+
+ - debug:
+      var: keypair
+   tags:
+    - ec2_key
+
+ - name: Copy EC2 Key Pair private key locally
+   copy: content="{{ keypair.key.private_key }}" dest={{ ec2_key_directory }}testvm.pem"
+   when: keypair.changed == true
+   tags:
+    - ec2_key
+
+ - name: Create EC2 Instance
+   amazon.aws.ec2:
+    image: ami-061c83f33d6345a3d
+    wait: yes
+    instance_type: t2.micro
+    region: "{{ region }}"
+    group_id: "{{ security_group.group_id }}"
+    vpc_subnet_id: "{{ subnet.subnet.id }}"
+    key_name: "{{ keypair.key.name  }}"
+    count_tag: "{{ ec2_tag }}"
+    exact_count: 1
+    aws_access_key: "{{ aws_access_key }}"
+    aws_secret_key: "{{ aws_secret_key }}"
+
+
+
+
+
+
