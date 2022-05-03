@@ -1,0 +1,4 @@
+- name: Configure AWS
+  hosts: localhost
+  roles:
+    - aws_configure_env_instance
