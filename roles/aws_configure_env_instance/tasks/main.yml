@@ -91,26 +91,104 @@
     - ec2_key
 
  - name: Copy EC2 Key Pair private key locally
-   copy: content="{{ keypair.key.private_key }}" dest={{ ec2_key_directory }}testvm.pem"
+   copy: content="{{ keypair.key.private_key }}" dest="{{ ec2_key_directory }}ansible_key.pem"
    when: keypair.changed == true
    tags:
     - ec2_key
 
- - name: Create EC2 Instance
-   amazon.aws.ec2:
-    image: ami-061c83f33d6345a3d
-    wait: yes
-    instance_type: t2.micro
-    region: "{{ region }}"
-    group_id: "{{ security_group.group_id }}"
-    vpc_subnet_id: "{{ subnet.subnet.id }}"
-    key_name: "{{ keypair.key.name  }}"
-    count_tag: "{{ ec2_tag }}"
-    exact_count: 1
-    aws_access_key: "{{ aws_access_key }}"
-    aws_secret_key: "{{ aws_secret_key }}"
+# - name: Create EC2 Instance
+#   amazon.aws.ec2:
+#    image: ami-0b0af3577fe5e3532
+#    wait: yes
+#    instance_type: t2.micro
+#    region: "{{ region }}"
+#    group_id: "{{ security_group }}"
+#    vpc_subnet_id: "{{ subnet.subnet.id }}"
+#    key_name: "{{ keypair.key.name  }}"
+#    count_tag: "{{ ec2_tag }}"
+#    exact_count: 3
+#    aws_access_key: "{{ aws_access_key }}"
+#    aws_secret_key: "{{ aws_secret_key }}"
 
+ - name: Create EC2 instances for node1
+   amazon.aws.ec2_instance:
+     state: running
+     network:
+       assign_public_ip: true
+     key_name: "{{ keypair.key.name }}"
+     #     security_group: "{{ securitygroup_name }}"
+     instance_type: t2.micro
+     image_id: ami-0b0af3577fe5e3532
+     aws_access_key: "{{ aws_access_key }}"
+     aws_secret_key: "{{ aws_secret_key }}"
+     region: "{{ region }}"
+     exact_count: 1 
+     state: running
+     filters:
+       instance-state-name: running
+       "tag:Ansible_Demo": "{{ ec2_name_prefix }}-node1"
+     tags:
+       Ansible_node: "{{ ec2_name_prefix }}-node1"
+       Workshop: "{{ ec2_name_prefix }}"
+       uuid: "{{ ec2_name_prefix }}"
+       guid: "{{ ec2_name_prefix }}"
+       AWS_USERNAME: ec2-user
+       owner: ec2-user
+       short_name: "node1"
+       username: "alan"
+       ansible-workshops: "true"
+     wait: "{{ ec2_wait }}"
+     vpc_subnet_id: "{{ subnet.subnet.id }}"
+     volumes:
+       - device_name: /dev/sda1
+         ebs:
+           volume_type: gp2
+           volume_size: 30
+           delete_on_termination: true
+   register: node1
 
+ - debug:
+     msg: "{{ node1 }}"
+
+ - name: Create EC2 instances for node2
+   amazon.aws.ec2_instance:
+     state: running
+     network:
+       assign_public_ip: true
+     key_name: "{{ keypair.key.name }}"
+     #     security_group: "{{ securitygroup_name }}"
+     instance_type: t2.micro
+     image_id: ami-0b0af3577fe5e3532
+     aws_access_key: "{{ aws_access_key }}"
+     aws_secret_key: "{{ aws_secret_key }}"
+     region: "{{ region }}"
+     exact_count: 1
+     state: running
+     filters:
+       instance-state-name: running
+       "tag:Ansible_Demo": "{{ ec2_name_prefix }}-node2"
+     tags:
+       Ansible_node: "{{ ec2_name_prefix }}-node2"
+       Workshop: "{{ ec2_name_prefix }}"
+       uuid: "{{ ec2_name_prefix }}"
+       guid: "{{ ec2_name_prefix }}"
+       AWS_USERNAME: ec2-user
+       owner: ec2-user
+       short_name: "node2"
+       username: "alan"
+       ansible-workshops: "true"
+     wait: "{{ ec2_wait }}"
+     vpc_subnet_id: "{{ subnet.subnet.id }}"
+     volumes:
+       - device_name: /dev/sda1
+         ebs:
+           volume_type: gp2
+           volume_size: 30
+           delete_on_termination: true
+   register: node2
+
+ - debug:
+     msg: "{{ node2 }}"
 
 
 
