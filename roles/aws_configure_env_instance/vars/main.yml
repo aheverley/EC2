@@ -24,7 +24,7 @@ ec2_tag: "WebServer"
 
 
 #key storage location
-ec2_key_directory: "/home/alan/" 
+ec2_key_directory: "/Users/aheverle/Downloads/sshkeys" 
 keypair_name: "ansible_key"
 
 ec2_name_prefix: Demo
