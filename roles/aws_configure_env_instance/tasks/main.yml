@@ -17,7 +17,7 @@
 
 
  - name: associate subnet to the VPC
-   amazon.aws.ec2_vpc_subnet:
+   ec2_vpc_subnet:
     state: present
     vpc_id: "{{ vpc_id }}"
     region: "{{ region }}"
@@ -30,7 +30,7 @@
    register: subnet
 
  - name: create IGW
-   amazon.aws.ec2_vpc_igw:
+   ec2_vpc_igw:
     vpc_id: "{{ vpc_id }}"
     region: "{{ region }}"
     aws_access_key: "{{ aws_access_key }}"
@@ -42,7 +42,7 @@
 
 
  - name: Route IGW
-   amazon.aws.ec2_vpc_route_table:
+   ec2_vpc_route_table:
     vpc_id: "{{ vpc_id }}"
     region: "{{ region }}"
     aws_access_key: "{{ aws_access_key }}"
@@ -57,7 +57,7 @@
 
 
  - name: Create Security Group
-   amazon.aws.ec2_group:
+   ec2_group:
     name: Web DMZ
     description: DMZ Security Group
     vpc_id: "{{ vpc_id }}"
@@ -76,7 +76,7 @@
    register: security_group
 
  - name: create a new ec2 key pair, returns generated private key
-   amazon.aws.ec2_key:
+   ec2_key:
     aws_access_key: "{{ aws_access_key }}"
     aws_secret_key: "{{ aws_secret_key }}"
     name: "{{ keypair_name }}"
@@ -111,7 +111,7 @@
 #    aws_secret_key: "{{ aws_secret_key }}"
 
  - name: Create EC2 instances for node1
-   amazon.aws.ec2_instance:
+   ec2_instance:
      state: running
      network:
        assign_public_ip: true
@@ -151,7 +151,7 @@
      msg: "{{ node1 }}"
 
  - name: Create EC2 instances for node2
-   amazon.aws.ec2_instance:
+   ec2_instance:
      state: running
      network:
        assign_public_ip: true
