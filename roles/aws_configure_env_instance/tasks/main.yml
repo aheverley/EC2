@@ -101,7 +101,7 @@
  - name: Copy EC2 Key Pair private key locally
    copy: 
      content: "{{ keypair.key.private_key }}" 
-     dest: ./ansible_key.pem #"./{{ ec2_key_directory }}ansible_key.pem"
+     dest: "./ansible_key.pem" #"./{{ ec2_key_directory }}ansible_key.pem"
      mode: 0400
    when: keypair.changed == true
    tags:
