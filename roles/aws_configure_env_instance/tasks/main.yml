@@ -99,7 +99,8 @@
   #tags: download,local
 
  - name: Copy EC2 Key Pair private key locally
-   copy: content="{{ keypair.key.private_key }}" 
+   copy: 
+     content: "{{ keypair.key.private_key }}" 
      dest: "./{{ ec2_key_directory }}ansible_key.pem"
      when: keypair.changed == true
    tags:
