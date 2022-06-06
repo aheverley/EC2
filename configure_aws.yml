@@ -2,3 +2,5 @@
   hosts: localhost
   roles:
     - aws_configure_env_instance
+  collections:
+    - amazon.aws
