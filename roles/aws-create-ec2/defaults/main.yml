@@ -1,13 +1,13 @@
 ---
 # defaults file for aws-create-ec2
-ec2_region: us-east-2
+ec2_region: us-east-1
 
 # Instance variables 
 ec2_instance_type: t2.large
 ec2_instance_count: 1
 ec2_ami_id: ami-0f540030bb04d884a
 ec2_volume_size: 30
-ec2_keypair_name: Ansible_Created_Keypair
+ec2_keypair_name: ansible_key
 
 #SG
 ec2_security_group: ""
