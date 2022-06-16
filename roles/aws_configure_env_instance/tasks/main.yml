@@ -101,7 +101,7 @@
  - name: Copy EC2 Key Pair private key locally
    copy: 
      content: "{{ keypair.key.private_key }}" 
-     dest: "~/sshkeys/ansible_key.pem" #"./{{ ec2_key_directory }}ansible_key.pem"
+     dest: "~/ansible_key.pem" #"./{{ ec2_key_directory }}ansible_key.pem"
      mode: 0400
    when: keypair.changed == true
    tags:
@@ -123,7 +123,7 @@
 
  - name: Create EC2 instances for node1
    ec2_instance:
-     name: rhel-1
+     name: node1
      state: running
      network:
        assign_public_ip: true
@@ -164,7 +164,7 @@
 
  - name: Create EC2 instances for node2
    ec2_instance:
-     name: rhel-2
+     name: node2
      state: running
      network:
        assign_public_ip: true
