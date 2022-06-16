@@ -15,6 +15,7 @@
     image: "{{ ec2_ami_id }}"
     #key_name: "{{ ec2_keypair_name }}"
     assign_public_ip: true
+    vpc_subnet_id: "{{ subnet_name }}"
     key_name: "ansible_key"
     wait: yes
     volumes:
