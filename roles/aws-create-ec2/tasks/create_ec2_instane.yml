@@ -1,6 +1,6 @@
 ---
 - name: Including {{ ec2_virtualmachine_ostype }} Specific Variables
-  include_vars: "{{ ec2_virtualmachine_ostype}}.yml"
+  include_vars: "{{ ec2_virtualmachine_ostype }}.yml"
 
 
 - name: setting fact if multicloud var is set
