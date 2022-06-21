@@ -81,6 +81,7 @@
     #aws_secret_key: "{{ aws_secret_key }}"
     name: "{{ keypair_name }}"
     region: "{{ region }}"
+    key_material: 'ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDAdWRsjdmJLFZZpWmUnntKiej0gN5YwCaeg35OISLTjlscj3UzWVP+rc+ZxCDcb4tVf3rjVxqCT9yudMYL5E6ENDyJhHNrNeOvp+weZoh8/2To1HJ4sfGnxoqWILee8W0cEsDwyQH6sWTr+B1gp5a//KxVb5/0atZneyOVv0YVMn19kul7q/N+Oi0zq7P54432hUe8lJmL5qlNw5Yd3r4bkORG2NGQy2gZ/NvMITeo0fRhL3uTNfgiQcHib4QGpAHz4eGbqUtawzMEhZ2qe0vUZP3ZAW/J92VlqD1+9OwuZDCCCU1o2eWLX5u0KfW7mxi8o/SBUfc8PIsrcAOkg1yOK+fkp6FNP5g4AZN3ZcQGnrl3h0uc8+LgVBy7LB5v8S5/+miHgJNuYmV/DWWWxjC10oSPIZ0RPSuRLw1PSez7uusDEfbz5sdpaeedaVZLrcK1Ccd8fnihsdzuH1ndKBK0B3gyzOzhoSXYxsyUDxqzR6rBQVxeFIQhIiKOhYk9sSRh7sQ1g/CyDZDIXkYdJgOOwSry0pyge/8bNXapXpg3AiH9ekplBLPvSJvniG/smAQeJ/g2lSjcSf7Xk5YDFLv3IU/H+bx4OygzbU7Rfddo2RPmv5T7+kkL6H7O/WLT4cU6HxOGggLqDMTAl+9PZtqMCXc78Y4xc5yoWuTOh8ePjw== aheverle@redhat.com'
    register: keypair
    tags:
     - ec2_key
