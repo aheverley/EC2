@@ -27,20 +27,20 @@
            volume_size: 30
            delete_on_termination: true
     security_group: "{{ ec2_security_group }}"
-#    tags:
-#      Name: "{{ ec2_name_tag }}"
-#      Name: "{{ virtualmachine_name_choice if (virtualmachine_name_choice is defined and virtualmachine_name_choice != '') else ec2_name_tag }}"
-#     Provisioner: "{{ ec2_provisioner_tag }}"
-#      Created: "{{ ec2_created_tag }}"
-#    user_data: "{{ lookup('template', ec2_userdata_template_file_name) }}"
-    #  Name: "{{ virtualmachine_name_choice if (virtualmachine_name_choice is defined) else ec2_name_tag }}"
-    #  Provisioner: "{{ ec2_provisioner_tag }}"
-    #  Created: "{{ ec2_created_tag }}"
+    tags:
+      Name: "{{ ec2_name_tag }}"
+      Name: "{{ virtualmachine_name_choice if (virtualmachine_name_choice is defined and virtualmachine_name_choice != '') else ec2_name_tag }}"
+      Provisioner: "{{ ec2_provisioner_tag }}"
+      Created: "{{ ec2_created_tag }}"
+    user_data: "{{ lookup('template', ec2_userdata_template_file_name) }}"
+      Name: "{{ virtualmachine_name_choice if (virtualmachine_name_choice is defined) else ec2_name_tag }}"
+      Provisioner: "{{ ec2_provisioner_tag }}"
+      Created: "{{ ec2_created_tag }}"
   register: ec2
 
-- name: Wait for connection to come up
-  wait_for: 
-    host: "{{ item.public_ip }}" 
-    port: "{{ wait_for_port }}" 
-    state: started
-  with_items: "{{ ec2.instances }}"
+#- name: Wait for connection to come up
+#  wait_for: 
+#    host: "{{ item.public_ip }}" 
+#    port: "{{ wait_for_port }}" 
+#    state: started
+#  with_items: "{{ ec2.instances }}"
