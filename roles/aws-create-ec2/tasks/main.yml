@@ -39,7 +39,7 @@
     #  Name: "{{ virtualmachine_name_choice if (virtualmachine_name_choice is defined) else ec2_name_tag }}"
     #  Provisioner: "{{ ec2_provisioner_tag }}"
     #  Created: "{{ ec2_created_tag }}"
- register: ec2
+  register: ec2
 
 - name: Wait for connection to come up
   wait_for: 
