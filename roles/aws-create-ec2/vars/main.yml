@@ -18,4 +18,4 @@ ec2_created_tag: "{{ ec2_created_tag_choice | default(ansible_date_time.date) }}
 
 ec2_virtualmachine_ostype: "{{ virtualmachine_ostype_choice | default('Linux') }}"
 
-subnet_name: "Ansible Subnet"
+#subnet_name: "Ansible Subnet"
