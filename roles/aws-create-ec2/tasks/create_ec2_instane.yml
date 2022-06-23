@@ -25,7 +25,7 @@
         volume_size: "{{ ec2_volume_size }}"
         delete_on_termination: true
     security_group: "{{ ec2_security_group }}"
-    instance_tags:
+    tags:
       #Name: "{{ ec2_name_tag }}"
       Name: "{{ virtualmachine_name_choice if (virtualmachine_name_choice is defined and virtualmachine_name_choice != '') else ec2_name_tag }}"
       Provisioner: "{{ ec2_provisioner_tag }}"
