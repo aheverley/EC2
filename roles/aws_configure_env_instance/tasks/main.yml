@@ -55,7 +55,6 @@
     tags:
       Name: "{{ route_name }}"
 
-
  - name: Create Security Group
    ec2_group:
     name: Web DMZ
@@ -72,6 +71,10 @@
       - proto: tcp
         ports:
         - 22
+        cidr_ip: 0.0.0.0/0
+      - proto: icmp
+        to_port: -1
+        from_port: -1
         cidr_ip: 0.0.0.0/0
    register: security_group
 
@@ -100,20 +103,6 @@
 #   tags:
 #     - ec2_key
 
-# - name: Create EC2 Instance
-#   amazon.aws.ec2:
-#    image: ami-0b0af3577fe5e3532
-#    wait: yes
-#    instance_type: t2.micro
-#    region: "{{ region }}"
-#    group_id: "{{ security_group }}"
-#    vpc_subnet_id: "{{ subnet.subnet.id }}"
-#    key_name: "{{ keypair.key.name  }}"
-#    count_tag: "{{ ec2_tag }}"
-#    exact_count: 3
-#    aws_access_key: "{{ aws_access_key }}"
-#    aws_secret_key: "{{ aws_secret_key }}"
-
  - name: Create EC2 instance for node1
    ec2_instance:
      name: node1
@@ -121,7 +110,7 @@
      network:
        assign_public_ip: true
      key_name: "{{ keypair.key.name }}"
-     group_id: "{{ security_group }}" #security_group: "{{ securitygroup_name }}"
+     security_group: "{{ securitygroup_name }}"
      instance_type: t2.micro
      image_id: ami-0b0af3577fe5e3532
      #aws_access_key: "{{ aws_access_key }}"
@@ -162,7 +151,7 @@
      network:
        assign_public_ip: true
      key_name: "{{ keypair.key.name }}"
-     group_id: "{{ security_group }}" #security_group: "{{ securitygroup_name }}"
+     security_group: "{{ securitygroup_name }}"
      instance_type: t2.micro
      image_id: ami-0b0af3577fe5e3532
      #aws_access_key: "{{ aws_access_key }}"
