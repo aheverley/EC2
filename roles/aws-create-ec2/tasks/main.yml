@@ -41,3 +41,26 @@
 #    port: "{{ wait_for_port }}" 
 #    state: started
 #  with_items: "{{ ec2.instances }}"
+
+# - name: Setting stats for the new VM public IP
+#   set_stats:
+#     data:
+#       provisioned_vm_public_ip: "{{ ec2.instances[0].public_ip }}"
+#     aggregate: yes
+
+# - name: Setting stats for the new VM public name
+#   set_stats:
+#     data:
+#       provisioned_vm_name: "{{ virtualmachine_name_choice if (virtualmachine_name_choice is defined and virtualmachine_name_choice != '') else ec2_name_tag }}"
+#     aggregate: yes
+
+# - name: Setting stats for the new VM public name
+#   set_stats:
+#     data:
+#       provisioned_vm_cloud: "AWS"
+#     aggregate: yes
+
+# - name: Pause for 30 seconds
+#   pause:
+#     seconds: 30
+
