@@ -85,7 +85,7 @@
      
  - name: Set Group ID in variable
    set_fact:
-     security_group: "{{ security_group.group.id }}"
+     security_group: "{{ security_group.group_id }}"
 
  - name: Add Key Pair
    ec2_key:
