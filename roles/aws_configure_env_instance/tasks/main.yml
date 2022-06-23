@@ -109,7 +109,7 @@
      network:
        assign_public_ip: true
      key_name: "{{ keypair.key.name }}"
-     security_group: "{{ security_group.security_group }}" #security_group: "{{ securitygroup_name }}"
+     security_group: "{{ securitygroup_name }}"
      instance_type: t2.micro
      image_id: ami-0b0af3577fe5e3532
      #aws_access_key: "{{ aws_access_key }}"
