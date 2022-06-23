@@ -3,7 +3,7 @@
  - name: create VPC
    ec2_vpc_net:
      name: "{{ vpc_name }}"
-     cidr_block: "{{ subnet_cidr }}"
+     cidr_block: "{{ vpc_cidr }}"
      region: "{{ region }}"
      state: present
      #aws_access_key: "{{ aws_access_key }}"
@@ -75,7 +75,7 @@
         cidr_ip: 0.0.0.0/0
    register: security_group
 
- - name: create a new ec2 key pair, returns generated private key
+ - name: Add Key Pair
    ec2_key:
     #aws_access_key: "{{ aws_access_key }}"
     #aws_secret_key: "{{ aws_secret_key }}"
@@ -91,14 +91,6 @@
    tags:
     - ec2_key
    
-#- name: Download SSH Key to Ansible Controller
- # delegate_to: localhost
-  #get_url:
-   # url: "https://{{ ansible_user }}:{{ ansible_password }}@files.example.com/installer.rpm"
-    #dest: "/tmp/{{ ansible_user }}"
-    #owner: "{{ ansible_user }}"
-  #tags: download,local
-
 # - name: Copy EC2 Key Pair private key locally
 #   copy: 
 #     content: "{{ keypair.key.private_key }}" 
@@ -122,14 +114,14 @@
 #    aws_access_key: "{{ aws_access_key }}"
 #    aws_secret_key: "{{ aws_secret_key }}"
 
- - name: Create EC2 instances for node1
+ - name: Create EC2 instance for node1
    ec2_instance:
      name: node1
      state: running
      network:
        assign_public_ip: true
      key_name: "{{ keypair.key.name }}"
-     #     security_group: "{{ securitygroup_name }}"
+     security_group: "{{ securitygroup_name }}"
      instance_type: t2.micro
      image_id: ami-0b0af3577fe5e3532
      #aws_access_key: "{{ aws_access_key }}"
@@ -170,7 +162,7 @@
      network:
        assign_public_ip: true
      key_name: "{{ keypair.key.name }}"
-     #     security_group: "{{ securitygroup_name }}"
+     security_group: "{{ securitygroup_name }}"
      instance_type: t2.micro
      image_id: ami-0b0af3577fe5e3532
      #aws_access_key: "{{ aws_access_key }}"
