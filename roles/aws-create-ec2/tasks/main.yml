@@ -1,8 +1,6 @@
 ---
 # tasks file for aws-create-ec2
 
-#- name: Provision EC2 Instance
-  #include_tasks: create_ec2_instane.yml
 - name: Including {{ ec2_virtualmachine_ostype }} Specific Variables
   include_vars: "{{ ec2_virtualmachine_ostype }}.yml"
 
@@ -35,8 +33,6 @@
 #     Provisioner: "{{ ec2_provisioner_tag }}"
 #      Created: "{{ ec2_created_tag }}"
 #    user_data: "{{ lookup('template', ec2_userdata_template_file_name) }}"
-    #exact_count: "{{ ec2_instance_count }}"
-    #count_tag: 
     #  Name: "{{ virtualmachine_name_choice if (virtualmachine_name_choice is defined) else ec2_name_tag }}"
     #  Provisioner: "{{ ec2_provisioner_tag }}"
     #  Created: "{{ ec2_created_tag }}"
