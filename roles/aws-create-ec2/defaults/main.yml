@@ -10,7 +10,7 @@ ec2_volume_size: 30
 ec2_keypair_name: ansible_key
 
 #SG
-ec2_security_group: ""
+ec2_security_group: "Web DMZ"
 
 #Instance Tags
 ec2_name_tag: Ansible_Created_EC2
