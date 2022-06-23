@@ -18,7 +18,7 @@ igw_name: "Traffic IGW"
 #route table name
 route_name: "Public Ansible"
 
-securitygroup_name: "{{ default('') }}" #"Ansible Security Group"
+#securitygroup_name: "{{ default('') }}" #"Ansible Security Group"
 
 ec2_tag: "WebServer"
 
