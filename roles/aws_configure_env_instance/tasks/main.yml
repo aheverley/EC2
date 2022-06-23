@@ -82,6 +82,10 @@
    
  - debug:
      var: security_group
+     
+ - name: Set Group ID in variable
+   set_fact:
+     security_group: "{{ security_group.group.id }}"
 
  - name: Add Key Pair
    ec2_key:
@@ -154,7 +158,7 @@
      network:
        assign_public_ip: true
      key_name: "{{ keypair.key.name }}"
-     security_group: "{{ securitygroup_name }}"
+     security_group: "{{ security_group }}"
      instance_type: t2.micro
      image_id: ami-0b0af3577fe5e3532
      #aws_access_key: "{{ aws_access_key }}"
