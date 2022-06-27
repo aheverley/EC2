@@ -31,6 +31,9 @@
       Name: "{{ subnet_name }}"
    register: subnet
 
+ - debug:
+     var: subnet
+
  - name: create IGW
    ec2_vpc_igw:
     vpc_id: "{{ vpc_id }}"
