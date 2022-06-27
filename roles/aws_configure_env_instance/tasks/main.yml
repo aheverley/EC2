@@ -81,6 +81,11 @@
         to_port: -1
         from_port: -1
         cidr_ip: 0.0.0.0/0
+      - proto: tcp
+        ports: 
+        - 3389
+        cidr_ip: 0.0.0.0/0
+        
    register: security_group
    
  - debug:
