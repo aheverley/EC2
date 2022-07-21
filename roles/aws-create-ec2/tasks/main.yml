@@ -24,7 +24,7 @@
       - device_name: /dev/sda1
         ebs:
            volume_type: gp2
-           volume_size: 30
+           volume_size: 100
            delete_on_termination: true
     security_group: "{{ ec2_security_group }}"
     tags:
