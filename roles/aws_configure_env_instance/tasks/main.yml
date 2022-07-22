@@ -72,7 +72,7 @@
       - proto: tcp
         ports:
         #- 80
-        - "{{ item.ports }}"
+        - "{{ ports }}"
         cidr_ip: 0.0.0.0/0
       - proto: tcp
         ports:
