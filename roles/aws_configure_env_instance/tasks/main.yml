@@ -71,7 +71,8 @@
     rules:
       - proto: tcp
         ports:
-        - 80
+        #- 80
+        - "{{ item.ports }}"
         cidr_ip: 0.0.0.0/0
       - proto: tcp
         ports:
