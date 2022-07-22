@@ -70,9 +70,9 @@
     #aws_secret_key: "{{ aws_secret_key }}"
     rules:
       - proto: tcp
-        ports:
+        ports: "{{ ports }}"
         #- 80
-        - "{{ ports }}"
+        #- "{{ ports }}"
         cidr_ip: 0.0.0.0/0
       - proto: tcp
         ports:
