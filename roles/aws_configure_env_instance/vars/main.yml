@@ -19,7 +19,24 @@ igw_name: "Traffic IGW"
 route_name: "Public Ansible"
 
 #securitygroup_name: "{{ default('') }}" #"Ansible Security Group"
-
+ports:
+  - 68
+  - 443
+  - 7911
+  - 623
+  - 636
+  - 9090
+  - 22
+  - 53
+  - 5000
+  - 80
+  - 16514
+  - 5671
+  - 5646
+  - 8443
+  - 5900-5930
+  - 3389
+  - 389
 ec2_tag: "WebServer"
 
 
