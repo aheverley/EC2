@@ -129,7 +129,7 @@
      key_name: "{{ keypair.key.name }}"
      security_group: "{{ security_group }}" #"{{ securitygroup_name }}"
      instance_type: t2.micro
-     image_id: ami-0b0af3577fe5e3532
+     image_id: ami-06640050dc3f556bb
      #aws_access_key: "{{ aws_access_key }}"
      #aws_secret_key: "{{ aws_secret_key }}"
      region: "{{ region }}"
@@ -169,7 +169,7 @@
      key_name: "{{ keypair.key.name }}"
      security_group: "{{ security_group }}"
      instance_type: t2.micro
-     image_id: ami-0b0af3577fe5e3532
+     image_id: ami-06640050dc3f556bb
      #aws_access_key: "{{ aws_access_key }}"
      #aws_secret_key: "{{ aws_secret_key }}"
      region: "{{ region }}"
