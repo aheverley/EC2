@@ -123,7 +123,7 @@
 
  - name: Create EC2 instance for node1
    ec2_instance:
-     name: node1
+     name: node1.eaxmple.com
      network:
        assign_public_ip: true
      key_name: "{{ keypair.key.name }}"
@@ -163,7 +163,7 @@
 
  - name: Create EC2 instances for node2
    ec2_instance:
-     name: node2
+     name: node2.example.com
      network:
        assign_public_ip: true
      key_name: "{{ keypair.key.name }}"
