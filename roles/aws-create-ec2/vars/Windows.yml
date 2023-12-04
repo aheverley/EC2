@@ -1,3 +1,3 @@
-ec2_ami_id: "{{ ec2_ami_id_choice | default('ami-0d86c69530d0a048e') }}" #Amazon Windows_Server-2022-English-Full-Base
+ec2_ami_id: "{{ ec2_ami_id_choice | default('ami-0cd601a22ac9e6d79') }}" #Amazon Windows_Server-2022-English-Full-Base
 ec2_userdata_template_file_name: userdata_Windows.txt.j2
 wait_for_port: 5986
